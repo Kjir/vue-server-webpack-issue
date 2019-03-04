@@ -6,14 +6,25 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue';
 
 export default {
   name: 'app',
   components: {
     HelloWorld
+  },
+  created() {
+    if (typeof window === 'undefined') {
+      // eslint-disable-next-line
+      console.debug('> Asserting in the App, only if in node');
+      // In this point the require will fail. Any node builtin will equally
+      // fail: We discovered the issue by using axios, which in a node context will
+      // make use of the 'http' builtin module.
+      const assert = require('assert');
+      assert.ok(true); // This will never run
+    }
   }
-}
+};
 </script>
 
 <style>

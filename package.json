@@ -4,11 +4,15 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build": "yarn run build:server --silent && yarn run build:client --silent && yarn run build:lambda --silent",
+    "test": "yarn build && node test",
+    "build:client": "vue-cli-service build",
+    "build:lambda": "WEBPACK_TARGET=lambda vue-cli-service build",
+    "build:server": "WEBPACK_TARGET=node vue-cli-service build"
   },
   "dependencies": {
-    "vue": "^2.6.6"
+    "vue": "^2.6.6",
+    "vue-server-renderer": "^2.6.8"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",
